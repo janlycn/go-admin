@@ -197,7 +197,8 @@ func (e *SysRole) UpdateDataScope(c *system.SysRole) (err error) {
 			tx.Commit()
 		}
 	}()
-	err = tx.Model(&system.SysRole{}).Where("role_id = ?", c.RoleId).Select("data_scope, update_by").Updates(c).Error
+
+	err = tx.Model(&c).Select("data_scope", "update_by").Updates(c).Error
 	if err != nil {
 		return err
 	}
